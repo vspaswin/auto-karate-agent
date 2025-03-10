@@ -1,6 +1,5 @@
 from prance import ResolvingParser
-from src.auto_karate_agent.security_tester import SecurityTestGenerator
-from config import Config
+from auto_karate_agent.security_tester import SecurityTestGenerator
 
 def test_api_key_security():
     parser = ResolvingParser(spec_string="""

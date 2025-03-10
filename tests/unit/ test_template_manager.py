@@ -1,4 +1,4 @@
-from src.auto_karate_agent.template_manager import TemplateUtils
+from auto_karate_agent.template_manager import TemplateUtils
 
 def test_karate_match_string():
     schema = {"type": "string"}

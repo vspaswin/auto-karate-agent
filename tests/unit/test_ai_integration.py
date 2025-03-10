@@ -1,6 +1,5 @@
 from unittest.mock import patch
 from auto_karate_agent.ai_integration import AITestGenerator
-from config import Config
 
 @patch('openai.ChatCompletion.create')
 def test_ai_edge_case_generation(mock_openai):

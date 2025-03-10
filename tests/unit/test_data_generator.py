@@ -1,4 +1,4 @@
-from config import Config
+from auto_karate_agent.data_generator import APIDataGenerator
 
 def test_generate_valid_parameters(data_generator):
     params = [{
