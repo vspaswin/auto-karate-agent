@@ -41,8 +41,8 @@ class OpenAPITestGenerator:
         
         # Base scenarios
         test_cases.append(self._generate_positive_test(endpoint))
-        test_cases.extend(self._generate_parameter_tests(endpoint))
-        test_cases.extend(self.security_tester.generate_security_tests(endpoint))
+        test_cases.extend(self._generate_positive_test(endpoint))
+        test_cases.extend(self.security_tester._generate_auth_tests(endpoint))
         
         # AI-generated tests
         if Config.AI_ENABLED:
@@ -57,11 +57,11 @@ class OpenAPITestGenerator:
         return {
             'type': 'positive',
             'parameters': self.data_gen.generate_valid_parameters(endpoint['parameters']),
-            'body': self.data_gen.generate_valid_body(endpoint.get('requestBody')),
+            'body': self.data_gen.generate_edge_body(endpoint.get('requestBody')),
             'expected_status': 200
         }
     
-def _generate_parameter_tests(self, endpoint):
+def _generate_positive_test(self, endpoint):
         tests = []
         for param in endpoint['parameters']:
             # Valid parameter
@@ -86,7 +86,7 @@ def _generate_body_tests(self, endpoint):
     if not endpoint['requestBody']:
         return []
         
-    valid_body = self.data_gen.generate_valid_body(endpoint['requestBody'])
+    valid_body = self.data_gen.generate_edge_body(endpoint['requestBody'])
     edge_body = self._generate_edge_body(endpoint['requestBody'])
     
     return [

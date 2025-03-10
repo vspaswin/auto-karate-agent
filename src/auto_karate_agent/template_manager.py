@@ -1,5 +1,6 @@
 from jinja2 import Environment, FileSystemLoader
 import os
+from .config import Config
 
 class TemplateManager:
     def __init__(self):

@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  title: RESTful API
+  description: API for retrieving objects
+  version: 1.0.0
+servers:
+  - url: https://api.restful-api.dev
+paths:
+  /objects:
+    get:
+      summary: Get all objects
+      responses:
+        '200':
+          description: List of objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Object'
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: X-API-Key
+      in: header
+
+  schemas:
+    Object:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "1"
+        name:
+          type: string
+          example: "Google Pixel 6 Pro"
+        data:
+          type: object
+          properties:
+            color:
+              type: string
+              example: "Cloudy White"
+            capacity:
+              type: string
+              example: "128 GB"
