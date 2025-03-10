@@ -22,7 +22,7 @@ class SecurityTestGenerator:
                 tests.append({
                     **base_test,
                     'description': f'Invalid {auth_type} Token',
-                    'headers': {'Authorization': 'Bearer invalid_token'},
+                    'headers': {'Authorization': 'Bearer <placeholder>'},
                     'expected_status': 403
                 })
                 
@@ -43,7 +43,7 @@ class SecurityTestGenerator:
              tests.append({
             **base_test,
             'description': f'Invalid {auth_type} OAuth Token',
-            'headers': {'Authorization': 'Bearer invalid_oauth_token'},
+            'headers': {'Authorization': 'Bearer <placeholder>'},
             'expected_status': 403
     })
             

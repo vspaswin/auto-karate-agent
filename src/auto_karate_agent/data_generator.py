@@ -112,4 +112,8 @@ class APIDataGenerator:
             return [
                 self._generate_from_schema(schema['items'])
                 for _ in range(random.randint(min_items, max_items))
-            ]
+                ]
+            
+    def generate_valid_parameters(self, parameters):
+        return {param['name']: self._generate_from_schema(param['schema']) 
+                for param in parameters if param.get('required', False)}

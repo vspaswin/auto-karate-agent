@@ -10,6 +10,7 @@ setup(
     package_dir={"": "src"},
     install_requires=[
         "prance>=0.21.8",
+        "openapi-spec-validator",
         "faker>=18.11.2",
         "jinja2>=3.1.2",
         "openai>=0.27.8",
