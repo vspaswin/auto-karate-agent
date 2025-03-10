@@ -4,7 +4,7 @@ from pathlib import Path
 def test_no_secrets_in_code():
     # Scan all Python files for potential secrets
     secrets = ['password', 'secret', 'api_key', 'token']
-    files = Path('test_generator').rglob('*.py')
+    files = Path('src/auto_karate_agent').rglob('*.py')
     
     for file in files:
         with open(file) as f:

@@ -1,3 +1,5 @@
+from config import Config
+
 def test_generate_valid_parameters(data_generator):
     params = [{
         "name": "userId",

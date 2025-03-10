@@ -1,5 +1,5 @@
 import pytest
-from test_generator.core import OpenAPITestGenerator
+from auto_karate_agent.core import OpenAPITestGenerator
 
 @pytest.mark.benchmark
 def test_generation_performance(benchmark):

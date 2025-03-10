@@ -1,5 +1,5 @@
 import pytest
-from test_generator.core import OpenAPITestGenerator
+from auto_karate_agent.core import OpenAPITestGenerator
 
 def test_full_generation_cycle(tmp_path):
     # Test the complete generate → save → execute flow

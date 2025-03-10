@@ -1,5 +1,5 @@
-from test_generator.core import OpenAPITestGenerator
-from test_generator.test_runner import TestRunner
+from src.auto_karate_agent.core import OpenAPITestGenerator
+from test_runner import TestRunner
 from config import Config
 
 def main():

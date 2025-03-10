@@ -2,9 +2,15 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.egg-info/
+dist/
+build/
 
 # Virtual Environments
 env/
+.env
+.venv/
+venv/
 
 # Distribution / packaging
 build/
@@ -19,5 +25,5 @@ dist/
 .DS_Store
 Thumbs.db
 
-# Environment variable files
-.env
+# Logs
+*.log

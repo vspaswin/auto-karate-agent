@@ -1,7 +1,7 @@
 import openai
 import json
 import logging
-from config import Config
+from .config import Config
 
 class AITestGenerator:
     def __init__(self):
