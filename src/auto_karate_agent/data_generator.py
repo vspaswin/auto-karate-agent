@@ -91,11 +91,11 @@ class APIDataGenerator:
         return edge_cases
     
     def generate_edge_body(self, schema):
-            edge_body = self._generate_from_schema(schema)
+        edge_body = self._generate_from_schema(schema)
             
-            # Corrupt required fields
-            if 'required' in schema:
-                for field in schema['required']:
+        # Corrupt required fields
+        if 'required' in schema:
+            for field in schema['required']:
                     if field in edge_body:
                         del edge_body[field]
                         
@@ -103,6 +103,15 @@ class APIDataGenerator:
             edge_body['invalid_field'] = self.fake.word()
             
             return edge_body
+        
+    def generate_valid_body(self, request_body):
+        content = request_body.get('content', {})
+        if not content:
+            return None
+        
+        content_type = next(iter(content), 'application/json')
+        schema = content[content_type].get('schema', {})
+        return self._generate_from_schema(schema) if schema else None
     
     # def _generate_from_schema(self, schema):
     #     schema_type = schema.get('type', 'string')

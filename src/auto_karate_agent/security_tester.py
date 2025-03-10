@@ -54,5 +54,5 @@ class SecurityTestGenerator:
                 'headers': {security_scheme['name']: 'invalid-key'},
                 'expected_status': 403
             })
-            
+        print(f"Generated security test for {endpoint.get('path')}: {base_test}")
         return tests
