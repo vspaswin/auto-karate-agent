@@ -2,15 +2,25 @@ class SecurityTestGenerator:
     def __init__(self, parser):
         self.spec = parser.specification
         
-    def _generate_auth_tests(self, auth_type):
-    # Assuming auth_type is a dictionary with a 'method' key
-        method = auth_type.get('method')
-        security_scheme = self.spec['components']['securitySchemes'].get(method)
+    def _generate_auth_tests(self, endpoint):
+        # Extract the security requirements from the endpoint
+        print("Endpoint: ", endpoint)
+        security_reqs = endpoint.get('security', [])
+        if not security_reqs:
+            print("No security requirements found for endpoint:", endpoint)
+            return []  # or handle the absence of security definitions appropriately
 
+        # Assuming you want to work with the first security requirement:
+        scheme_name = list(security_reqs[0].keys())[0]
+        security_scheme = self.spec['components']['securitySchemes'].get(scheme_name)
+        
         if not security_scheme:
-            raise ValueError(f"Security scheme for method '{method}' not found.")
-
+            raise ValueError(f"Security scheme for '{scheme_name}' not found.")
+        
+        method = endpoint['method']
         tests = []
+        
+        print("Security scheme type:", security_scheme['type'])
         
         base_test = {
             'type': 'security',
