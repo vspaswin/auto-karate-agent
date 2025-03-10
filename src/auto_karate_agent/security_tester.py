@@ -3,12 +3,18 @@ class SecurityTestGenerator:
         self.spec = parser.specification
         
     def _generate_auth_tests(self, auth_type):
-        security_scheme = self.spec['components']['securitySchemes'][auth_type]
+    # Assuming auth_type is a dictionary with a 'method' key
+        method = auth_type.get('method')
+        security_scheme = self.spec['components']['securitySchemes'].get(method)
+
+        if not security_scheme:
+            raise ValueError(f"Security scheme for method '{method}' not found.")
+
         tests = []
         
         base_test = {
             'type': 'security',
-            'auth_type': auth_type,
+            'auth_type': method,
             'expected_status': 401
         }
         
@@ -16,12 +22,12 @@ class SecurityTestGenerator:
             if security_scheme['scheme'] == 'bearer':
                 tests.append({
                     **base_test,
-                    'description': f'Missing {auth_type} Bearer Token',
+                    'description': f'Missing {method} Bearer Token',
                     'headers': {'Authorization': ''}
                 })
                 tests.append({
                     **base_test,
-                    'description': f'Invalid {auth_type} Token',
+                    'description': f'Invalid {method} Token',
                     'headers': {'Authorization': 'Bearer <placeholder>'},
                     'expected_status': 403
                 })
@@ -29,22 +35,14 @@ class SecurityTestGenerator:
         elif security_scheme['type'] == 'apiKey':
             tests.append({
                 **base_test,
-                'description': f'Missing {auth_type} API Key',
+                'description': f'Missing {method} API Key',
                 'headers': {}
             })
             tests.append({
                 **base_test,
-                'description': f'Invalid {auth_type} API Key',
+                'description': f'Invalid {method} API Key',
                 'headers': {security_scheme['name']: 'invalid-key'},
                 'expected_status': 403
             })
-            
-        elif security_scheme['type'] == 'oauth2':
-             tests.append({
-            **base_test,
-            'description': f'Invalid {auth_type} OAuth Token',
-            'headers': {'Authorization': 'Bearer <placeholder>'},
-            'expected_status': 403
-    })
             
         return tests

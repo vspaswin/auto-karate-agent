@@ -9,6 +9,8 @@ paths:
   /objects:
     get:
       summary: Get all objects
+      security:
+        - ApiKeyAuth: []  # Ensure this line is present to specify the security requirement
       responses:
         '200':
           description: List of objects
