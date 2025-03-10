@@ -1,0 +1,15 @@
+Feature: Test {{ endpoint.method }} {{ endpoint.path }} - {{ template_name }}
+
+  Scenario: {{ scenario.name }}
+    Given url '{{ endpoint.path }}'
+    {% if scenario.params %}
+    And path { {% for param in scenario.params %}{{ param.name }} = {{ param.value }}{% if not loop.last %}, {% endif %}{% endfor %} }
+    {% endif %}
+    {% if scenario.body %}
+    And request {{ scenario.body|json }}
+    {% endif %}
+    When method {{ endpoint.method|lower }}
+    Then status {{ scenario.expected_status }}
+    {% if scenario.response_schema %}
+    And match response == {{ scenario.response_schema }}
+    {% endif %}
