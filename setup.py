@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="auto-karate-agent",  # Package name (hyphenated)
+    name="auto-karate-agent",
     version="0.1.0",
     description="Autonomous AI Agent for generating Karate DSL tests",
     author="Your Name",
     author_email="your.email@example.com",
-    packages=find_packages(where="src"),  # Look for packages in the `src` directory
-    package_dir={"": "src"},  # Specify that packages are in `src`
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
     install_requires=[
         "prance>=0.21.8",
         "faker>=18.11.2",
@@ -26,13 +26,10 @@ setup(
         ],
     },
     python_requires=">=3.8",
-    include_package_data=True,  # Include non-Python files (e.g., templates)
+    include_package_data=True,  # ✅ Only declare this once
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
     ],
 )

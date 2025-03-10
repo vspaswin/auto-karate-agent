@@ -1,5 +1,5 @@
 from unittest.mock import patch
-from src.auto_karate_agent.ai_integration import AITestGenerator
+from auto_karate_agent.ai_integration import AITestGenerator
 from config import Config
 
 @patch('openai.ChatCompletion.create')
