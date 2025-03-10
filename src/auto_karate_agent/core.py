@@ -1,6 +1,7 @@
 import logging
 from prance import ResolvingParser
 from . import data_generator, template_manager, ai_integration, validators, security_tester
+from config import Config
 
 class OpenAPITestGenerator:
     def __init__(self):
