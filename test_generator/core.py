@@ -60,4 +60,43 @@ class OpenAPITestGenerator:
             'expected_status': 200
         }
     
-    # ... (other test generation methods) ...
+def _generate_parameter_tests(self, endpoint):
+        tests = []
+        for param in endpoint['parameters']:
+            # Valid parameter
+            tests.append({
+                'type': 'parameter',
+                'name': param['name'],
+                'value': self.data_gen.generate_valid_parameters([param]),
+                'expected_status': 200
+            })
+            
+            # Edge cases
+            for edge_value in self.data_gen.generate_edge_case(param):
+                tests.append({
+                    'type': 'parameter_edge',
+                    'name': param['name'],
+                    'value': {param['name']: edge_value},
+                    'expected_status': 400 if param.get('required') else 200
+                })
+        return tests
+
+def _generate_body_tests(self, endpoint):
+    if not endpoint['requestBody']:
+        return []
+        
+    valid_body = self.data_gen.generate_valid_body(endpoint['requestBody'])
+    edge_body = self._generate_edge_body(endpoint['requestBody'])
+    
+    return [
+        {
+            'type': 'body_positive',
+            'body': valid_body,
+            'expected_status': 200
+        },
+        {
+            'type': 'body_edge',
+            'body': edge_body,
+            'expected_status': 400
+        }
+    ]

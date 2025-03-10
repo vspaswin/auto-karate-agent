@@ -26,4 +26,28 @@ class TemplateManager:
 class TemplateUtils:
     @staticmethod
     def karate_match(schema):
-        # ... (schema to Karate match helpers) ...
+        if not schema:
+            return '##null'
+            
+        schema_type = schema.get('type', 'object')
+        fmt = schema.get('format', '')
+        
+        if schema_type == 'object':
+            return {
+                prop: TemplateUtils.karate_match(sub_schema)
+                for prop, sub_schema in schema.get('properties', {}).items()
+            }
+            
+        elif schema_type == 'array':
+            return f'#[] {TemplateUtils.karate_match(schema.get("items"))}'
+            
+        type_map = {
+            'string': '#string',
+            'integer': '#number',
+            'number': '#number',
+            'boolean': '#boolean',
+            'date': '#regex [0-9]{4}-[0-9]{2}-[0-9]{2}',
+            'date-time': '#regex ^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}'
+        }
+        
+        return type_map.get(fmt if fmt else schema_type, '##null')
