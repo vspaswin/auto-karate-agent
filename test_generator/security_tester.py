@@ -39,4 +39,12 @@ class SecurityTestGenerator:
                 'expected_status': 403
             })
             
+        elif security_scheme['type'] == 'oauth2':
+             tests.append({
+            **base_test,
+            'description': f'Invalid {auth_type} OAuth Token',
+            'headers': {'Authorization': 'Bearer invalid_oauth_token'},
+            'expected_status': 403
+    })
+            
         return tests

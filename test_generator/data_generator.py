@@ -103,3 +103,13 @@ class APIDataGenerator:
             edge_body['invalid_field'] = self.fake.word()
             
             return edge_body
+    
+    def _generate_from_schema(self, schema):
+        if schema_type == 'array':
+            # Add minimum/maximum items check
+            min_items = schema.get('minItems', 1)
+            max_items = schema.get('maxItems', 3)
+            return [
+                self._generate_from_schema(schema['items'])
+                for _ in range(random.randint(min_items, max_items))
+            ]
